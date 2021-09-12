@@ -8,6 +8,15 @@ var pressedKeys = {};
 window.onkeyup = function(e) { pressedKeys[e.keyCode] = false; }
 window.onkeydown = function(e) { pressedKeys[e.keyCode] = true; }
 
+// keeps mouse state in memory
+var mouseDown = false;
+document.body.onmousedown = function() { 
+    mouseDown = true;
+}
+document.body.onmouseup = function() {
+    mouseDown = false;
+}
+
 // draws what is in 'buffer'
 function render() {
     for (let i = 0; i < toDraw.length; i++) {
@@ -16,20 +25,37 @@ function render() {
         // draws image
         var imageToDraw = new Image();
         imageToDraw.src = curToDraw[0];
-        ctx.drawImage(imageToDraw, curToDraw[1], curToDraw[2]);
+
+        if (curToDraw.length == 5) {
+            ctx.drawImage(imageToDraw, curToDraw[1], curToDraw[2], curToDraw[3], curToDraw[4]);
+        } else {
+            ctx.drawImage(imageToDraw, curToDraw[1], curToDraw[2]);
+        }
+
+
     }
 }
 
 // called by user
-function addImage(location, x, y) {
-    toDraw.push([location, x, y]);
+// width and height are optional. If not set, will use defult size of image loaded, otherwise will stretch
+function addImage(location, x, y, width = -1, height = -1) {
+    if (width == -1 && height == -1) {
+        toDraw.push([location, x, y]);
+    } else {
+        toDraw.push([location, x, y, width, height]);
+    }
 }
 
 // returns true or false depending on whether the specified key is pressed
-function keyDown(sKey) {
+function isKeyDown(sKey) {
     var sKeyCode = sKey.toUpperCase().charCodeAt();
     if (pressedKeys[sKeyCode]) { return true; }
     return false;
+}
+
+// returns true or false depending on whether the specified key is pressed
+function isMouseDown() {
+    return mouseDown;
 }
 
 function run(setup, main) {
@@ -53,7 +79,14 @@ function run(setup, main) {
             imageBeingRead.src = curToDraw[0];
 
             ctx.fillStyle = `rgb(${options["back-colour"]})`;
-            ctx.fillRect(curToDraw[1], curToDraw[2], imageBeingRead.width, imageBeingRead.height);
+
+            if (curToDraw.length == 5) {
+                ctx.fillRect(curToDraw[1], curToDraw[2], curToDraw[3], curToDraw[4]);
+            } else {
+                ctx.fillRect(curToDraw[1], curToDraw[2], imageBeingRead.width, imageBeingRead.height);
+            }
+
+            
         }
 
         toDraw = [];
