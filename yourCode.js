@@ -1,6 +1,8 @@
 var x = 0;
 var y = 0;
 
+/* A SIMPLE PROGRAM THAT LETS YOU MOVE A SMILEY FACE AROUND THE CANVAS WITH THE WASD KEYS */
+
 function main() {
     if (firstFrame == true) {
         // alert("Only completed on the first frame");
