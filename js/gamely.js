@@ -21,7 +21,7 @@ document.body.onmouseup = function() {
 // draws what is in 'buffer'
 function render() {
     for (let i = 0; i < sprites.length; i++) {
-        var curToDraw = sprites[i].renderImage();
+        var curToDraw = sprites.sort(compareByZindex)[i].renderImage();
 
         // draws image
         var imageToDraw = new Image();
@@ -117,29 +117,14 @@ function drawText(textContent, font, size, x, y, colour) {
     texts.push([`${size}px ${font}`, [textContent, x, y, colour, size]]);
 }
 
-function post(yourUrl, sContent, sContentType) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", yourUrl, true);
-    xhr.setRequestHeader('Content-Type', sContentType);
-    xhr.send(sContent);
-}
-
-function get(yourUrl) {
-    var xhr = new XMLHttpRequest();
-
-    xhr.onreadystatechange = function () {
-        if (this.readyState != 4) return;
-
-        if (this.status == 200) {
-            var data = JSON.parse(this.responseText);
-
-            // we get the returned data
-        }
-
-        // end of state change: it can be after some time (async)
-    };
-
-    xhr.open('GET', yourUrl, true);
-    xhr.send();
+function compareByZindex(a, b) {
+    if (a.zIndex < b.zIndex) {
+        return -1;
+    }
+    if (a.zIndex > b.zIndex) {
+        return 1;
+    }
+    // a must be equal to b
+    return 0;
 }
 

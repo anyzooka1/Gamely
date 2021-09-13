@@ -11,6 +11,12 @@ class sprite {
             this.w = options["w"];
             this.h = options["h"];
         }
+        
+        if (options["z-index"] == undefined) {
+            this.zIndex = 0;
+        } else {
+            this.zIndex = options["z-index"];
+        }
 
         sprites.push(this);
     }
