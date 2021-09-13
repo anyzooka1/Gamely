@@ -61,6 +61,7 @@ function run(setup, main) {
     const interval = setInterval(function() {
         // this overwrites anything that had been drawn before, to not have to completely
         // have to redraw the entire screen, but only those areas that have changed
+
         for (let i = 0; i < sprites.length; i++) {
             var curToDraw = sprites[i].renderImage();
 
@@ -69,11 +70,12 @@ function run(setup, main) {
             imageBeingRead.src = curToDraw[0];
 
             ctx.fillStyle = `rgb(${options["back-colour"]})`;
-
+            var toFillAround = 5;
+            
             if (curToDraw.length == 5) {
-                ctx.fillRect(curToDraw[1], curToDraw[2], curToDraw[3], curToDraw[4]);
+                ctx.fillRect(curToDraw[1] - toFillAround, curToDraw[2] - toFillAround, curToDraw[3] + toFillAround, curToDraw[4] + toFillAround);
             } else {
-                ctx.fillRect(curToDraw[1], curToDraw[2], imageBeingRead.width, imageBeingRead.height);
+                ctx.fillRect(curToDraw[1] - toFillAround, curToDraw[2] - toFillAround, imageBeingRead.width + toFillAround, imageBeingRead.height + toFillAround);
             }
 
             
