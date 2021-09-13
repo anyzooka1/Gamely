@@ -1,27 +1,26 @@
 var x = 0;
 var y = 0;
 
-/* A SIMPLE PROGRAM THAT LETS YOU MOVE A SMILEY FACE AROUND THE CANVAS WITH THE WASD KEYS */
+var a = new sprite({
+    "x": 1,
+    "y": 1,
+    "fileLocation": "images/smiley.png",
+    "visible": true,
+});
+
+/* A SIMPLE PROGRAM THAT LETS YOU MOVE A SMILEY UP BY PRESSING THE MOUSE BUTTON, AND DOWN BY PRESSING 'S' */
 
 function main() {
     if (firstFrame == true) {
         // alert("Only completed on the first frame");
     }
     // alert("Completed every frame");
-    if (keyDown("w")) {
-        y -= 1;
+    if (isMouseDown()) {
+        a.y -= 2;
     }
-    if (keyDown("a")) {
-        x -= 1;
+    if (isKeyDown("s")) {
+        a.y += 2;
     }
-    if (keyDown("s")) {
-        y += 1;
-    }
-    if (keyDown("d")) {
-        x += 1;
-    }
-
-    addImage("smiley.png", x, y);
 }
 
 function setup() {

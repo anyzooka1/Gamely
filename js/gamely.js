@@ -1,6 +1,6 @@
 // stores as globals
 var firstFrame = true;
-var toDraw = [];
+var sprites = [];
 var ctx = null;
 
 // checks which keys are down
@@ -19,8 +19,8 @@ document.body.onmouseup = function() {
 
 // draws what is in 'buffer'
 function render() {
-    for (let i = 0; i < toDraw.length; i++) {
-        var curToDraw = toDraw[i];
+    for (let i = 0; i < sprites.length; i++) {
+        var curToDraw = sprites[i].renderImage();
 
         // draws image
         var imageToDraw = new Image();
@@ -31,18 +31,6 @@ function render() {
         } else {
             ctx.drawImage(imageToDraw, curToDraw[1], curToDraw[2]);
         }
-
-
-    }
-}
-
-// called by user
-// width and height are optional. If not set, will use defult size of image loaded, otherwise will stretch
-function addImage(location, x, y, width = -1, height = -1) {
-    if (width == -1 && height == -1) {
-        toDraw.push([location, x, y]);
-    } else {
-        toDraw.push([location, x, y, width, height]);
     }
 }
 
@@ -73,8 +61,10 @@ function run(setup, main) {
     const interval = setInterval(function() {
         // this overwrites anything that had been drawn before, to not have to completely
         // have to redraw the entire screen, but only those areas that have changed
-        for (let i = 0; i < toDraw.length; i++) {
-            var curToDraw = toDraw[i];
+        for (let i = 0; i < sprites.length; i++) {
+            var curToDraw = sprites[i].renderImage();
+
+            // gets image
             var imageBeingRead = new Image();
             imageBeingRead.src = curToDraw[0];
 
@@ -89,7 +79,7 @@ function run(setup, main) {
             
         }
 
-        toDraw = [];
+        // sprites = [];
         main(); // executes user's code
         render();
         firstFrame = false;
