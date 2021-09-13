@@ -37,6 +37,7 @@ function main() {
 
     if (character.isColliding(ball)) {
         // ends game if colliding
+        playAudio("audio/death.mp3");
         character.visible = false;
         ball.visible = false;
         alert(`Score: ${score}!`);
