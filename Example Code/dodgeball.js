@@ -1,11 +1,11 @@
-var character = new sprite({
+var character = new gamelySprite({
     "x": 90,
     "y": 0,
     "fileLocation": "images/smiley.png",
     "visible": true,
 });
 
-var ball = new sprite({
+var ball = new gamelySprite({
     "x": 400,
     "y": Math.random() * 400,
     "fileLocation": "images/ball.png",

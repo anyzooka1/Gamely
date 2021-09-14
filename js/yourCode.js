@@ -1,15 +1,13 @@
-/* A SIMPLE PROGRAM THAT LETS YOU MOVE A SMILEY UP BY PRESSING THE MOUSE BUTTON, AND DOWN BY PRESSING 'S' */
-
 function main() {
     if (firstFrame == true) {
-        // alert("Only completed on the first frame");
+        // Ran only on the first frame
     }
-    // alert("Completed every frame");
+    // Ran every frame
 }
 
 function setup() {
     return {
-        "fps": 60,
+        "fps": 2,
         "size": [400, 400],
         "back-colour": [255, 177, 35],
     };

@@ -2,7 +2,7 @@ var yVelocity = 0;
 var groundLevel = 400; // point at which the character will stop (1/5 from botton of screen)
 var gravityForce = 1; // multiplyer of gravity
 
-var character = new sprite({
+var character = new gamelySprite({
     "x": 90,
     "y": 0,
     "fileLocation": "images/smiley.png",

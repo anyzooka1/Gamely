@@ -3,6 +3,7 @@ var firstFrame = true;
 var sprites = [];
 var texts = [];
 var ctx = null;
+var buttons = [];
 
 // checks which keys are down
 var pressedKeys = {};
@@ -74,6 +75,10 @@ function run(setup, main) {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     var toFillAround = 5;
 
+    main(); // executes user's code
+    render();
+    firstFrame = false;
+
     const interval = setInterval(function() {
         // this overwrites anything that had been drawn before, to not have to completely
         // have to redraw the entire screen, but only those areas that have changed
@@ -104,7 +109,20 @@ function run(setup, main) {
             ctx.fillRect(curText[1][1] - textPadding, curText[1][2] - textHeight, text.width + textPadding, textHeight + textPadding);
         }
 
-        // sprites = [];
+
+        for (let i = 0; i < buttons.length; i++) {
+            var button = buttons[i];
+            if (button.id != "mainCanvas") {
+                if (button.wasVisible != button.visible) {
+                    button.wasVisible = button.visible;
+                    if (button.visible) {
+                        button.button.style.display = "block";
+                    } else {
+                        button.button.style.display = "none";
+                    }
+                }
+            }
+        }
 
         texts = [];
         main(); // executes user's code
@@ -128,4 +146,3 @@ function compareByZindex(a, b) {
     // a must be equal to b
     return 0;
 }
-
