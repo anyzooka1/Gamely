@@ -1,6 +1,6 @@
 # gamely
 An open-source light weight game engine for JavaScript game making.
 ## How to use:
-Simply copy the index.html and js folder to your new game directory. Then, start writing your code in the 'yourCode.js' file!
+Simply copy the contents of the 'TEMPLATE' folder into your development folder, and you're good to go!
 
-It's that simple!
+Have fun!
