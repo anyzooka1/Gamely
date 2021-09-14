@@ -19,6 +19,13 @@ document.body.onmouseup = function() {
     mouseDown = false;
 }
 
+window.addEventListener('touchstart', function() {
+    mouseDown = true;
+});
+window.addEventListener('touchend', function() {
+    mouseDown = false;
+});
+
 // draws what is in 'buffer'
 function render() {
     for (let i = 0; i < sprites.length; i++) {
