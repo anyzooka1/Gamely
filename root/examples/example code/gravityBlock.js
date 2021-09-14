@@ -5,7 +5,7 @@ var gravityForce = 1; // multiplyer of gravity
 var character = new gamelySprite({
     "x": 90,
     "y": 0,
-    "fileLocation": "images/smiley.png",
+    "fileLocation": "examples/images/smiley.png",
     "visible": true,
 });
 

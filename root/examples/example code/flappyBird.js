@@ -1,7 +1,7 @@
 var bird = new gamelySprite({
     "x": 20,
     "y": 0,
-    "fileLocation": "images/bird.png",
+    "fileLocation": "examples/images/bird.png",
     "visible": true,
 });
 
@@ -85,13 +85,13 @@ function keepSpawningPipes() {
             pipes.push([new gamelySprite( {
                 "x": 400,
                 "y": y / 3 - pipeHeight / 2 - distBetweenPipes,
-                "fileLocation": "images/downPipe.png",
+                "fileLocation": "examples/images/downPipe.png",
                 "visible": true,
             } ),
             new gamelySprite( {
                 "x": 400,
                 "y": y / 3 + pipeHeight / 2,
-                "fileLocation": "images/upPipe.png",
+                "fileLocation": "examples/images/upPipe.png",
                 "visible": true,
             } ), ]);
         }

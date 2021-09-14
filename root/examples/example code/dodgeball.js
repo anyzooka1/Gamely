@@ -1,14 +1,14 @@
 var character = new gamelySprite({
     "x": 90,
     "y": 0,
-    "fileLocation": "images/smiley.png",
+    "fileLocation": "examples/images/smiley.png",
     "visible": true,
 });
 
 var ball = new gamelySprite({
     "x": 400,
     "y": Math.random() * 400,
-    "fileLocation": "images/ball.png",
+    "fileLocation": "examples/images/ball.png",
     "visible": true,
 });
 
@@ -39,7 +39,7 @@ function main() {
 
     if (character.isColliding(ball)) {
         // ends game if colliding
-        playAudio("audio/death.mp3");
+        playAudio("examples/audio/death.mp3");
         character.visible = false;
         ball.visible = false;
         alert(`Score: ${score}!`);
