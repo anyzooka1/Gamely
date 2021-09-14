@@ -4,7 +4,6 @@ class gamelyButton {
         this.y = options["y"];
 
         this.content = options["content"];
-        this.y = options["y"];
 
         this.visible = options["visible"];
         this.wasVisible = options["visible"];
@@ -24,7 +23,7 @@ class gamelyButton {
 
         
         // 3. Add event handler
-        this.button.addEventListener ("click", this.onClickFunc);
+        this.button.addEventListener("click", this.onClickFunc);
 
         buttons.push(this);
     }

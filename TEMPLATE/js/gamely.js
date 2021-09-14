@@ -22,7 +22,12 @@ document.body.onmouseup = function() {
 // draws what is in 'buffer'
 function render() {
     for (let i = 0; i < sprites.length; i++) {
+        if (sprites[i].visible == false) {
+            continue;
+        }
+
         var curToDraw = sprites.sort(compareByZindex)[i].renderImage();
+
 
         // draws image
         var imageToDraw = new Image();
@@ -73,41 +78,42 @@ function run(setup, main) {
     ctx.canvas.height = options["size"][1];
     ctx.fillStyle = `rgb(${options["back-colour"]})`;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    var toFillAround = 5;
+    var toFillAround = 10;
 
     main(); // executes user's code
     render();
     firstFrame = false;
 
     const interval = setInterval(function() {
+        ctx.fillStyle = `rgb(${options["back-colour"]})`;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
         // this overwrites anything that had been drawn before, to not have to completely
         // have to redraw the entire screen, but only those areas that have changed
         //
-        ctx.fillStyle = `rgb(${options["back-colour"]})`;
 
-        for (let i = 0; i < sprites.length; i++) {
-            var curToDraw = sprites[i].renderImage();
+        // for (let i = 0; i < sprites.length; i++) {
+        //     var curToDraw = sprites[i].renderImage();
 
-            // gets image
-            var imageBeingRead = new Image();
-            imageBeingRead.src = curToDraw[0];
+        //     // gets image
+        //     var imageBeingRead = new Image();
+        //     imageBeingRead.src = curToDraw[0];
             
-            if (curToDraw.length == 5) {
-                ctx.fillRect(curToDraw[1] - toFillAround, curToDraw[2] - toFillAround, curToDraw[3] + toFillAround, curToDraw[4] + toFillAround);
-            } else {
-                ctx.fillRect(curToDraw[1] - toFillAround, curToDraw[2] - toFillAround, imageBeingRead.width + toFillAround, imageBeingRead.height + toFillAround);
-            }
-        }
+        //     if (curToDraw.length == 5) {
+        //         ctx.fillRect(curToDraw[1] - toFillAround, curToDraw[2] - toFillAround, curToDraw[3] + toFillAround, curToDraw[4] + toFillAround);
+        //     } else {
+        //         ctx.fillRect(curToDraw[1] - toFillAround, curToDraw[2] - toFillAround, imageBeingRead.width + toFillAround, imageBeingRead.height + toFillAround);
+        //     }
+        // }
 
-        for (let i = 0; i < texts.length; i++) {
-            var curText = texts[i];
-            ctx.font = curText[0];
-            var text = ctx.measureText(curText[1][0]);
-            var textHeight = parseInt(ctx.font.match(/\d+/), 10);
-            var textPadding = 20;
+        // for (let i = 0; i < texts.length; i++) {
+        //     var curText = texts[i];
+        //     ctx.font = curText[0];
+        //     var text = ctx.measureText(curText[1][0]);
+        //     var textHeight = parseInt(ctx.font.match(/\d+/), 10);
+        //     var textPadding = 20;
 
-            ctx.fillRect(curText[1][1] - textPadding, curText[1][2] - textHeight, text.width + textPadding, textHeight + textPadding);
-        }
+        //     ctx.fillRect(curText[1][1] - textPadding, curText[1][2] - textHeight, text.width + textPadding, textHeight + textPadding);
+        // }
 
 
         for (let i = 0; i < buttons.length; i++) {

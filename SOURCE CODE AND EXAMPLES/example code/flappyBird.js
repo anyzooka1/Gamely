@@ -1,20 +1,106 @@
 var bird = new gamelySprite({
-    "x": 90,
+    "x": 20,
     "y": 0,
     "fileLocation": "images/bird.png",
     "visible": true,
 });
 
+var y = 0;
+var yVel = 0;
+var gravity = 0.1;
+var jumpForce = 2;
+var pipes = [];
+var pipeSpeed = 1; 
+var score = 0;
+var button = new gamelyButton( {
+    "x": 10,
+    "y": 10,
+    "content": "Restart",
+    "visible": true,
+    "onClickFunc": restart,
+} );
+
+function restart() {
+    button.visible = false;
+    for (let i = 0; i < pipes.length; i++) {
+        pipes[i][0].visible = false;
+        pipes[i][1].visible = false;
+    }
+
+    score = 0;
+    y = 0;
+    yVel = 0;
+    bird.visible = true;
+}
+
 function main() {
     if (firstFrame == true) {
-        // Ran only on the first frame
+        keepSpawningPipes();
+        button.visible = false;
     }
-    // Ran every frame
+
+    if (bird.visible) {
+        drawText(`Score: ${score}`, "serif", "48", 10, 0, [255,255,255]);
+    } else {
+        drawText(`Final Score: ${score}`, "serif", "60", 20, 150, [255,255,255]);
+        return;
+    }
+
+    if (isKeyDown(" ") || isMouseDown()) {
+        yVel = -jumpForce;
+    }
+
+    yVel += gravity;
+    y += yVel;
+    bird.y = y;
+
+    for (let i = 0; i < pipes.length; i++) {
+        pipes[i][0].x -= pipeSpeed;
+        pipes[i][1].x -= pipeSpeed;
+
+        if (bird.isColliding(pipes[i][0]) || bird.isColliding(pipes[i][1]) || y > 400) {
+            bird.visible = false;
+            button.visible = true;
+        }
+
+        if (pipes[i][0].x < 20 && !pipes[i][0].passed) {
+            score++;
+            pipes[i][0].passed = true;
+        }
+    }
+}
+
+function touchingPipe(pipe) {
+
+}
+
+function keepSpawningPipes() {
+    var pipeHeight = 380;
+    var distBetweenPipes = 150;
+
+    setInterval(function() {
+        if (!button.visible) {
+            var y = Math.random() * 700 - 200; // -200 - 500
+
+            pipes.push([new gamelySprite( {
+                "x": 400,
+                "y": y / 3 - pipeHeight / 2 - distBetweenPipes,
+                "fileLocation": "images/downPipe.png",
+                "visible": true,
+            } ),
+            new gamelySprite( {
+                "x": 400,
+                "y": y / 3 + pipeHeight / 2,
+                "fileLocation": "images/upPipe.png",
+                "visible": true,
+            } ), ]);
+        }
+    }, 2000);
 }
 
 function setup() {
     return {
-        "fps": 60,
+        "fps": 120,
         "size": [400, 400],
         "back-colour": [255, 177, 35],
     };

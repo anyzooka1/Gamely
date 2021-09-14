@@ -26,8 +26,8 @@ class gamelySprite {
     }
 
     loadedSizesCallBack(result, cls) {
-        cls.w = result[0];
-        cls.h = result[1];
+        cls.h = result[0];
+        cls.w = result[1];
     }
 
     detect(URL, callback, cls) {
