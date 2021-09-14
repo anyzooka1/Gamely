@@ -20,6 +20,8 @@ function main() {
     if (firstFrame == true) {
         // nothing to do here
     }
+
+    drawText(`Score: ${score}`, "serif", 18, 10, 0, [255,255,255]);
     
     // moves player
     if (isKeyDown("w")) {

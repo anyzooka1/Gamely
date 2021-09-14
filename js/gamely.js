@@ -39,7 +39,8 @@ function render() {
         ctx.font = curText[0];
         ctx.fillStyle = `rgb(${curText[1][3]})`;
         var text = ctx.measureText(curText[1][0]);
-        ctx.fillText(curText[1][0], curText[1][1], curText[1][2]);
+        var textHeight = parseInt(ctx.font.match(/\d+/), 10);
+        ctx.fillText(curText[1][0], curText[1][1], curText[1][2] + textHeight);
     }
 }
 
