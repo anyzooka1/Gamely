@@ -1,17 +1,29 @@
 var bird = new gamelySprite({
     "x": 20,
     "y": 0,
-    "fileLocation": "examples/images/bird.png",
+    "fileLocation": "images/bird.png",
     "visible": true,
+    "rotate" : 0,
+});
+
+var background = new gamelySprite({
+    "x": 0,
+    "y": 0,
+    "fileLocation": "images/flappyBackground.png",
+    "visible": true,
+    "rotate" : 0,
+    "z-index": -10,
 });
 
 var y = 0;
 var yVel = 0;
+var recVel = 0;
 var gravity = 0.1;
 var jumpForce = 2;
 var pipes = [];
 var pipeSpeed = 1; 
 var score = 0;
+
 var button = new gamelyButton( {
     "x": 10,
     "y": 10,
@@ -49,6 +61,8 @@ function main() {
     if (isKeyDown(" ") || isMouseDown()) {
         yVel = -jumpForce;
     }
+    
+    bird.rotation = (yVel / 10) * 90;
 
     yVel += gravity;
     y += yVel;
@@ -85,14 +99,16 @@ function keepSpawningPipes() {
             pipes.push([new gamelySprite( {
                 "x": 400,
                 "y": y / 3 - pipeHeight / 2 - distBetweenPipes,
-                "fileLocation": "examples/images/downPipe.png",
+                "fileLocation": "images/downPipe.png",
                 "visible": true,
+                "rotate" : 0,
             } ),
             new gamelySprite( {
                 "x": 400,
                 "y": y / 3 + pipeHeight / 2,
-                "fileLocation": "examples/images/upPipe.png",
+                "fileLocation": "images/upPipe.png",
                 "visible": true,
+                "rotate" : 0,
             } ), ]);
         }
     }, 2000);

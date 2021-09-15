@@ -26,6 +26,20 @@ window.addEventListener('touchend', function() {
     mouseDown = false;
 });
 
+function toRadians (angle) {
+    return angle * (Math.PI / 180);
+}
+
+function rotatePoint(cx, cy, x, y, angle) {
+    // https://stackoverflow.com/a/17411276/16563719
+    var radians = (Math.PI / 180) * angle,
+        cos = Math.cos(radians),
+        sin = Math.sin(radians),
+        nx = (cos * (x - cx)) + (sin * (y - cy)) + cx,
+        ny = (cos * (y - cy)) - (sin * (x - cx)) + cy;
+    return [nx, ny];
+}
+
 // draws what is in 'buffer'
 function render() {
     for (let i = 0; i < sprites.length; i++) {
@@ -33,18 +47,22 @@ function render() {
             continue;
         }
 
-        var curToDraw = sprites.sort(compareByZindex)[i].renderImage();
+        if (!sprites.sort(compareByZindex)[i].renderImage()) {
+            break;
+        } 
 
+        var spriteToDraw = sprites.sort(compareByZindex)[i];
 
-        // draws image
+        ctx.rotate(spriteToDraw.rotation * Math.PI/180); // rotates canvas
+
         var imageToDraw = new Image();
-        imageToDraw.src = curToDraw[0];
+        imageToDraw.src = spriteToDraw.fileLoc;
 
-        if (curToDraw.length == 5) {
-            ctx.drawImage(imageToDraw, curToDraw[1], curToDraw[2], curToDraw[3], curToDraw[4]);
-        } else {
-            ctx.drawImage(imageToDraw, curToDraw[1], curToDraw[2]);
-        }
+        var toMove = rotatePoint(0, 0, spriteToDraw.x, spriteToDraw.y, spriteToDraw.rotation); // gets corrected point
+
+        ctx.drawImage(imageToDraw, toMove[0], toMove[1], spriteToDraw.w, spriteToDraw.h); // draws
+
+        ctx.setTransform(1,0,0,1,0,0); // resets canvas
     }
 
     for (let i = 0; i < texts.length; i++) {

@@ -11,6 +11,12 @@ class gamelySprite {
             this.w = options["w"];
             this.h = options["h"];
         }
+
+        if (options["rotate"] != undefined) {
+            this.rotation = options["rotate"];
+        } else {
+            this.rotation = 0;
+        }
         
         if (options["z-index"] == undefined) {
             this.zIndex = 0;
@@ -19,6 +25,7 @@ class gamelySprite {
         }
 
         sprites.push(this);
+
     }
 
     getSize() {
@@ -40,11 +47,7 @@ class gamelySprite {
 
     renderImage() {
         if (!this.visible) { return null; }
-        if (this.h != undefined && this.w != undefined) {
-            return [this.fileLoc, this.x, this.y, this.w, this.h];
-        } else { 
-            return [this.fileLoc, this.x, this.y];
-        }
+        return true;
     }
 
     isColliding(otherSprite) {
