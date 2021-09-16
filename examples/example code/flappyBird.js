@@ -23,6 +23,7 @@ var jumpForce = 2;
 var pipes = [];
 var pipeSpeed = 1; 
 var score = 0;
+var targetRotation = 0;
 
 var button = new gamelyButton( {
     "x": 10,
@@ -62,7 +63,9 @@ function main() {
         yVel = -jumpForce;
     }
     
-    bird.rotation = (yVel / 10) * 90;
+    targetRotation = (yVel / 10) * 90;
+
+    bird.rotation += (targetRotation - bird.rotation) / 10
 
     yVel += gravity;
     y += yVel;
