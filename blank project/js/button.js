@@ -6,7 +6,7 @@ class gamelyButton {
         this.content = options["content"];
 
         this.visible = options["visible"];
-        this.wasVisible = options["visible"];
+        this.wasVisible = !options["visible"];
 
         this.onClickFunc = options["onClickFunc"];
 

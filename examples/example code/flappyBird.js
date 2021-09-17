@@ -87,10 +87,6 @@ function main() {
     }
 }
 
-function touchingPipe(pipe) {
-
-}
-
 function keepSpawningPipes() {
     var pipeHeight = 380;
     var distBetweenPipes = 150;
