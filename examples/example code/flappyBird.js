@@ -24,6 +24,7 @@ var pipes = [];
 var pipeSpeed = 1; 
 var score = 0;
 var targetRotation = 0;
+var highscore = -1;
 
 var button = new gamelyButton( {
     "x": 10,
@@ -50,10 +51,16 @@ function main() {
     if (firstFrame == true) {
         keepSpawningPipes();
         button.visible = false;
+
+        if (!fileExists("flappyBirdScore")) {
+            writeFile("flappyBirdScore", "0");
+        }
+
+        highscore = parseInt(readFile("flappyBirdScore"));
     }
 
     if (bird.visible) {
-        drawText(`Score: ${score}`, "serif", "48", 10, 0, [255,255,255]);
+        drawText(`Score: ${score}/${highscore}`, "serif", "48", 10, 0, [255,255,255]);
     } else {
         drawText(`Final Score: ${score}`, "serif", "60", 20, 150, [255,255,255]);
         return;
@@ -78,6 +85,11 @@ function main() {
         if (bird.isColliding(pipes[i][0]) || bird.isColliding(pipes[i][1]) || y > 400) {
             bird.visible = false;
             button.visible = true;
+
+            if (score > highscore) {
+                highscore = score;
+                writeFile("flappyBirdScore", score);
+            }
         }
 
         if (pipes[i][0].x < 20 && !pipes[i][0].passed) {
